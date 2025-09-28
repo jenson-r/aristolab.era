@@ -2,7 +2,7 @@ package com.aristolab.era;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.ibm.icu.util.ChineseCalendar;
 
 import java.time.LocalDate;
@@ -34,7 +34,9 @@ public final class EraToolkit {
     public static final Pattern PERIOD_PATTERN = Pattern.compile("(\\d{1,4})(?:[年/.-](\\d{1,2})(?:[月/.-](\\d{1,2}))?)?");
     public static final String MINUTE_OFFSET_KEY = "minuteOffset";
 
-    private static final ObjectMapper MAPPER = new ObjectMapper().registerModule(new JavaTimeModule());
+    private static final ObjectMapper MAPPER = JsonMapper.builder()
+            .findAndAddModules()
+            .build();
 
     private final EraRegistry registry;
     private final EraConverter converter;

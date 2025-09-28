@@ -2,7 +2,7 @@ package com.aristolab.era;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,8 +22,9 @@ import java.util.stream.Collectors;
 public final class EraRegistry {
 
     private static final String DEFAULT_RESOURCE = "/era/era-definitions.json";
-    private static final ObjectMapper MAPPER = new ObjectMapper()
-            .registerModule(new JavaTimeModule());
+    private static final ObjectMapper MAPPER = JsonMapper.builder()
+            .findAndAddModules()
+            .build();
 
     private final List<EraDefinition> definitions;
 
